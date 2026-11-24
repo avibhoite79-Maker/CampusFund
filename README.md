@@ -56,7 +56,7 @@ cd contracts-project
 npm install
 npx hardhat test
 ```
-To deploy, make a .env file in contracts-project with SEPOLIA_RPC_URL and PRIVATE_KEY, then run:
+To deploy, make a .env file in contracts-project with Sepolia_rpc_url and Private_key, then run:
 
 ```
 npx hardhat run scripts/deploy.js --network sepolia
@@ -98,4 +98,4 @@ We wrote 12 tests in Hardhat. They check creating a campaign, donating, voting, 
 ## Team
 - Team Members:Avesh Bhoite, Sayali Suryawanshi, Tanuja Shirke.
 - Course:Bsc(Blockchain Technology).
-- college:Department of Technology,Savitribai Phule Pune University.
+- College:Department of Technology,Savitribai Phule Pune University.
