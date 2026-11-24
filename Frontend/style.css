@@ -1,0 +1,398 @@
+/* ---------- 1. COLORS AND FONTS (change them here) ---------- */
+:root {
+  --indigo: #3a2fd1;        /* main brand color */
+  --indigo-dark: #2a21a8;
+  --indigo-deep: #1e1b6b;
+  --paper: #f6f5ff;         /* page background */
+  --ink: #1a1840;           /* text */
+  --muted: #5c5b80;         /* small text */
+  --line: #dad8f2;          /* borders */
+  --white: #ffffff;
+
+  --yellow: #ffc93c;        /* money being voted on now */
+  --yellow-ink: #7a5200;
+  --mint: #3ddc97;          /* released money */
+  --mint-ink: #0f7a53;
+  --coral: #e5484d;         /* rejections, refunds, errors */
+
+  --font-head: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.1; margin: 0; }
+
+/* ---------- 2. HERO (big colored top area) ---------- */
+.hero-wrap {
+  background: var(--indigo);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.brand { font-family: var(--font-head); font-weight: 800; font-size: 24px; }
+
+.wallet { display: flex; align-items: center; gap: 10px; }
+
+.account {
+  font-size: 14px;
+  background: var(--indigo-dark);
+  border-radius: 999px;
+  padding: 5px 14px;
+}
+
+.account:empty { display: none; }
+
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px 56px;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 5.5vw, 62px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  max-width: 34em;
+  margin: 16px 0 28px;
+  font-size: 19px;
+  color: #dedbff;
+}
+
+/* the 3 steps: a real sequence, so they are numbered */
+.flow {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.flow li {
+  counter-increment: step;
+  background: var(--indigo-dark);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.flow li::before {
+  content: counter(step);
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.flow b { display: block; font-family: var(--font-head); font-size: 18px; }
+.flow span { font-size: 15px; color: #dedbff; }
+
+/* ---------- 3. VAULT DRAWING ---------- */
+.vault svg { width: 100%; max-width: 360px; display: block; margin: 0 auto; }
+
+.v-body { fill: var(--indigo-deep); stroke: var(--yellow); stroke-width: 6; }
+.v-frame { fill: var(--indigo-dark); }
+.v-door { fill: var(--indigo); stroke: var(--yellow); stroke-width: 6; }
+.v-dial-ring { fill: var(--indigo-deep); stroke: var(--white); stroke-width: 4; }
+.v-dial line { stroke: var(--white); stroke-width: 4; stroke-linecap: round; }
+.v-hub { fill: var(--yellow); }
+
+.v-dial {
+  transform-origin: 150px 165px;
+  animation: spin 1.4s ease-out 1;
+}
+
+.bolt {
+  fill: var(--yellow);
+  animation: unlock 0.5s ease forwards;
+}
+
+.b1 { animation-delay: 1.2s; }
+.b2 { animation-delay: 1.8s; }
+.b3 { animation-delay: 2.4s; }
+
+@keyframes spin { to { transform: rotate(300deg); } }
+
+@keyframes unlock {
+  to { transform: translateX(-24px); fill: var(--mint); }
+}
+
+/* people who turn animations off see the unlocked vault straight away */
+@media (prefers-reduced-motion: reduce) {
+  .v-dial { animation: none; }
+  .bolt { animation: none; transform: translateX(-24px); fill: var(--mint); }
+}
+
+/* ---------- 4. LAYOUT ---------- */
+.layout {
+  max-width: 1100px;
+  margin: 36px auto 60px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+  align-items: start;
+}
+
+.layout h2 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+
+.legend { margin: 0 0 16px; font-size: 14px; color: var(--muted); }
+
+.create-col { position: sticky; top: 16px; }
+
+/* ---------- 5. FORM ---------- */
+.panel {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  padding: 18px;
+  margin-top: 14px;
+}
+
+label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+input:focus-visible,
+.btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 1px; }
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.hint { margin: -6px 0 16px; font-size: 14px; color: var(--muted); }
+
+/* ---------- 6. BUTTONS ---------- */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--indigo);
+  background: var(--white);
+  color: var(--indigo);
+  transition: background 0.15s;
+}
+
+.btn:hover { background: #ebe9ff; }
+
+.btn.primary { background: var(--indigo); color: var(--white); }
+.btn.primary:hover { background: var(--indigo-dark); }
+
+.btn.yellow { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+.btn.yellow:hover { background: #ffd966; }
+
+.btn.danger { border-color: var(--coral); color: var(--coral); }
+.btn.danger:hover { background: #fdecec; }
+
+.btn.wide { width: 100%; }
+
+/* ---------- 7. CAMPAIGN CARD ---------- */
+.card {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-top { display: flex; gap: 20px; align-items: center; }
+
+.ring-wrap { flex-shrink: 0; width: 140px; }
+.ring { width: 100%; display: block; }
+
+.ring circle { fill: none; }
+.ring .track { stroke: var(--paper); stroke-width: 12; }
+.ring .seg { stroke-width: 12; }
+.ring .seg.done { stroke: var(--mint); }
+.ring .seg.now { stroke: var(--yellow); }
+.ring .seg.next { stroke: var(--line); }
+.ring .fund-track { stroke: var(--paper); stroke-width: 6; }
+.ring .fund { stroke: var(--indigo); stroke-width: 6; stroke-linecap: round; }
+
+.ring text { text-anchor: middle; fill: var(--ink); }
+.ring-pct { font-family: var(--font-head); font-weight: 800; font-size: 22px; }
+.ring-sub { font-size: 11px; fill: var(--muted); }
+
+.card-main { min-width: 0; flex: 1; }
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.card h3 { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; }
+
+.desc { margin: 8px 0 4px; }
+.small { font-size: 14px; color: var(--muted); }
+
+.badge {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 11px;
+  border-radius: 999px;
+  background: #e4e1ff;
+  color: var(--indigo-dark);
+}
+
+.badge.goal { background: #fff0c4; color: var(--yellow-ink); }
+.badge.failed { background: #fdecec; color: var(--coral); }
+.badge.done { background: #d8f7e8; color: var(--mint-ink); }
+
+.raised { margin-top: 10px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.raised b { font-family: var(--font-head); font-size: 28px; font-weight: 800; }
+
+/* milestone steps: this shows where the locked money is */
+.steps {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.step { position: relative; padding: 0 0 16px 30px; }
+.step:last-child { padding-bottom: 0; }
+
+.step::before {              /* the dot */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--line);
+}
+
+.step::after {               /* the line joining the dots */
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 22px;
+  bottom: -2px;
+  width: 2px;
+  background: var(--line);
+}
+
+.step:last-child::after { display: none; }
+
+.step.done::before { background: var(--mint); border-color: var(--mint); }
+.step.done::after { background: var(--mint); }
+.step.current::before { background: var(--yellow); border-color: var(--yellow); }
+
+.step-title { font-weight: 600; }
+.step-info { font-size: 14px; color: var(--muted); }
+.step.current .step-info { color: var(--yellow-ink); }
+
+.votebar {
+  display: flex;
+  height: 8px;
+  margin: 6px 0 2px;
+  max-width: 260px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #f6c9cb;
+}
+
+.votebar > span { background: var(--mint); }
+
+/* action buttons */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 2px dashed var(--line);
+}
+
+.actions input { width: 130px; margin: 0; }
+
+.mine { margin-left: auto; font-size: 14px; color: var(--muted); }
+
+/* ---------- 8. EMPTY STATE AND MESSAGES ---------- */
+.empty {
+  background: var(--white);
+  border: 2px dashed var(--line);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  max-width: min(520px, 92vw);
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: var(--ink);
+  color: var(--white);
+  font-weight: 600;
+  display: none;
+}
+
+.toast.show { display: block; }
+.toast.success { background: var(--mint-ink); }
+.toast.error { background: var(--coral); }
+
+/* ---------- 9. PHONES AND TABLETS ---------- */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .vault { order: -1; }
+  .vault svg { max-width: 220px; }
+  .layout { grid-template-columns: 1fr; }
+  .create-col { position: static; }
+  .flow { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .card-top { flex-direction: column; align-items: flex-start; }
+  .ring-wrap { width: 120px; }
+}

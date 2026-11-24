@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusFund</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Big colored top area: bar + hero -->
+  <div class="hero-wrap">
+
+    <header class="topbar">
+      <div class="brand">CampusFund</div>
+      <div class="wallet">
+        <span id="account" class="account"></span>
+        <button id="connectBtn" class="btn yellow" onclick="connectWallet()">Connect MetaMask</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Funds stay locked until donors say the work is done.</h1>
+        <p class="lead">
+          CampusFund holds every donation inside an Ethereum smart contract and hands it to
+          the organiser one milestone at a time.
+        </p>
+        <ol class="flow">
+          <li><b>Donate</b><span>Your ETH goes into the contract, not to the organiser.</span></li>
+          <li><b>Vote</b><span>Donors approve each milestone. A bigger donation counts for more.</span></li>
+          <li><b>Release</b><span>The organiser gets that milestone's share. Goal missed? Donors get refunds.</span></li>
+        </ol>
+      </div>
+
+      <!-- Vault drawing: the 3 bolts unlock one by one when the page loads -->
+      <div class="vault" aria-hidden="true">
+        <svg viewBox="0 0 320 320">
+          <rect class="v-body" x="24" y="40" width="272" height="250" rx="30" />
+          <rect class="v-frame" x="48" y="64" width="224" height="202" rx="20" />
+          <circle class="v-door" cx="150" cy="165" r="70" />
+          <g class="v-dial">
+            <circle class="v-dial-ring" cx="150" cy="165" r="38" />
+            <line x1="150" y1="127" x2="150" y2="203" />
+            <line x1="112" y1="165" x2="188" y2="165" />
+            <circle class="v-hub" cx="150" cy="165" r="9" />
+          </g>
+          <rect class="bolt b1" x="214" y="104" width="52" height="14" rx="7" />
+          <rect class="bolt b2" x="214" y="158" width="52" height="14" rx="7" />
+          <rect class="bolt b3" x="214" y="212" width="52" height="14" rx="7" />
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <main class="layout">
+
+    <!-- Campaign list (filled by script.js) -->
+    <section class="campaigns-col">
+      <h2>Campaigns</h2>
+      <p class="legend">Outer ring: one segment per milestone. Inner ring: how much of the goal is funded.</p>
+      <div id="campaigns">
+        <div class="empty">Connect MetaMask to see the campaigns on Sepolia.</div>
+      </div>
+    </section>
+
+    <!-- Create campaign form -->
+    <aside class="create-col">
+      <h2>Start a campaign</h2>
+      <div class="panel">
+        <label for="title">Title</label>
+        <input id="title" placeholder="Tech Fest 2026" />
+
+        <label for="description">Description</label>
+        <input id="description" placeholder="What will the money be used for?" />
+
+        <div class="row">
+          <div>
+            <label for="goal">Goal (ETH)</label>
+            <input id="goal" placeholder="1" />
+          </div>
+          <div>
+            <label for="days">Days open</label>
+            <input id="days" placeholder="7" />
+          </div>
+        </div>
+
+        <label for="milestones">Milestones</label>
+        <input id="milestones" placeholder="Book venue, Book speakers, Run event" />
+        <p class="hint">Separate milestones with commas. Use 1 to 5.</p>
+
+        <button class="btn primary wide" onclick="createCampaign()">Create campaign</button>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Messages appear here -->
+  <div id="status" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- ethers.js library (talks to MetaMask and the contract) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+  <!-- contract address and ABI -->
+  <script src="contract.js"></script>
+  <!-- our own code -->
+  <script src="script.js"></script>
+</body>
+</html>
