@@ -1,7 +1,7 @@
 // ---------- 1. SETTINGS AND VARIABLES ----------
 
 // Address of our backend. Change it to your Vercel backend link after deploying.
-const API_URL = "http://localhost:5000";
+const API_URL = "https://collegefund-gamma.vercel.app";
 
 const SEPOLIA_CHAIN_ID = 11155111n;
 
